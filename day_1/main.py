@@ -10,6 +10,7 @@ WORD_TO_DIGIT_MAP = {
     "nine": "9"
 }
 
+
 def calibrate_value_for_words(line: str) -> int:
     positions = [
         (idx, digit)
@@ -19,12 +20,14 @@ def calibrate_value_for_words(line: str) -> int:
     positions.extend((idx, ch) for idx, ch in enumerate(line) if ch.isdigit())
     if not positions:
         return 0
-    positions.sort(key=lambda x:x[0])
+    positions.sort(key=lambda x: x[0])
     first, last = positions[0][1], positions[-1][1] if len(positions) > 1 else positions[0][1]
     return int(first + last)
 
+
 def sum_calibration_values_for_words(lines) -> int:
     return sum(calibrate_value_for_words(line) for line in lines)
+
 
 def calibrate_value(line: str) -> int:
     digits = [ch for ch in line if ch.isdigit()]
@@ -32,9 +35,11 @@ def calibrate_value(line: str) -> int:
         return 0
     first, last = digits[0], digits[-1] if len(digits) > 1 else digits[0]
     return int(first + last)
-    
+
+
 def sum_calibration_values(lines) -> int:
     return sum(calibrate_value(line) for line in lines)
+
 
 def test_cases():
     part1_input = [
@@ -42,7 +47,7 @@ def test_cases():
         ("pqr3stu8vwx", 38),
         ("a1b2c3d4e5f", 15),
         ("treb7uchet", 77)]
-    
+
     for line, expected in part1_input:
         assert calibrate_value(line) == expected, f"Test case failed for {line}"
 
@@ -56,13 +61,14 @@ def test_cases():
         ("4nineeightseven2", 42),
         ("zoneight234", 14),
         ("7pqrstsixteen", 76),
-        ("no_digits",0)]
+        ("no_digits", 0)]
     for line, expected in part2_input:
         assert calibrate_value_for_words(line) == expected, f"Test case failed for line: {line}"
 
     assert sum_calibration_values_for_words([line for line, _ in part2_input]) == 281, f"Test case failed for sum"
 
     print("All tests passed successfully")
+
 
 def main():
     input_file = "input.txt"
@@ -71,7 +77,7 @@ def main():
         lines = content.splitlines()
         print(f"Sum: {sum_calibration_values_for_words(lines)}")
 
+
 if __name__ == '__main__':
     test_cases()
     main()
-    
